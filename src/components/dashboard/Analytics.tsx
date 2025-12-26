@@ -1,17 +1,20 @@
 import { useSubStore } from "../../store/useSubStore";
 import { Card } from "../ui/Card";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-  type TooltipProps,
-} from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import type { Category } from "../../types";
 import { CATEGORY_LABELS } from "../../lib/utils";
 import { calculateCost } from "../../lib/calculateCost";
 import { getCurrencySymbol } from "../../lib/utils";
+
+interface TooltipPayload {
+  name: string;
+  value: number;
+}
+
+interface TooltipContentProps {
+  active?: boolean;
+  payload?: TooltipPayload[];
+}
 
 // Цвета для категорий
 const COLORS: Record<Category, string> = {
@@ -93,10 +96,7 @@ export const Analytics = () => {
                   ))}
                 </Pie>
                 <Tooltip
-                  content={({
-                    active,
-                    payload,
-                  }: TooltipProps<number, string>) =>
+                  content={({ active, payload }: TooltipContentProps) =>
                     active && payload && payload.length ? (
                       <div className="bg-white dark:bg-slate-800 p-3 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
                         <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
