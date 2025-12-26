@@ -1,13 +1,56 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
+    <!-- Базовые мета-теги -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Менеджер</title>
+    
+    <!-- SEO мета-теги -->
+    <title>SubManager - Менеджер подписок | Управление подписками онлайн</title>
+    <meta name="description" content="SubManager - удобное веб-приложение для управления и отслеживания подписок. Контролируйте расходы по валютам, анализируйте расходы по категориям, отслеживайте платежи в реальном времени." />
+    <meta name="keywords" content="менеджер подписок, управление подписками, отслеживание платежей, анализ расходов, веб-приложение" />
+    <meta name="author" content="SubManager" />
+    <meta name="theme-color" content="#1e293b" />
+    
+    <!-- Open Graph мета-теги для социальных сетей -->
+    <meta property="og:title" content="SubManager - Менеджер подписок" />
+    <meta property="og:description" content="Управляйте подписками легко. Контролируйте расходы, анализируйте траты по категориям, отслеживайте платежи в реальном времени." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://submanager.vercel.app" />
+    <meta property="og:image" content="/images/og-image.png" />
+    <meta property="og:locale" content="ru_RU" />
+    
+    <!-- Twitter Card мета-теги -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SubManager - Менеджер подписок" />
+    <meta name="twitter:description" content="Управляйте подписками легко и контролируйте свои траты" />
+    <meta name="twitter:image" content="/images/og-image.png" />
+    
+    <!-- Favicons и иконки -->
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Canonical URL (для предотвращения дублирования) -->
+    <link rel="canonical" href="https://submanager.vercel.app" />
+    
+    <!-- DNS prefetch для быстрой загрузки -->
+    <link rel="dns-prefetch" href="https://api.exchangerate-api.com" />
+    <link rel="preconnect" href="https://api.exchangerate-api.com" />
+    
+    <!-- Robots мета-тег -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    
+    <!-- Accessibility -->
+    <meta name="color-scheme" content="light dark" />
   </head>
   <body>
-    <div id="root"></div>
+    <noscript>
+      <p>SubManager требует включенный JavaScript для корректной работы. Пожалуйста, включите JavaScript в настройках вашего браузера.</p>
+    </noscript>
+    
+    <div id="root" role="application" aria-label="SubManager - Менеджер подписок"></div>
+    
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

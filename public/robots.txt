@@ -1,0 +1,30 @@
+# SubManager robots.txt
+# Указывает поисковым системам как индексировать сайт
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /build/
+Disallow: /.env
+
+# Google-specific rules
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bing-specific rules
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Disallow bad bots
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: DotBot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://submanager.vercel.app/sitemap.xml
