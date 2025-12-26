@@ -39,10 +39,10 @@ export const AddSubscriptionForm = () => {
   // Состояние для фокуса и фильтрации
   const [isNameFocused, setIsNameFocused] = useState(false);
 
-  // Фильтрация списка на основе ввода
+  // Фильтрация списка на основе ввода (только начало названия)
   const filteredSuggestions = POPULAR_SUBSCRIPTIONS.filter(
     (sub) =>
-      sub.name.toLowerCase().includes(formData.name.toLowerCase()) &&
+      sub.name.toLowerCase().startsWith(formData.name.toLowerCase()) &&
       formData.name.length > 0 // Показываем только если что-то ввели
   );
 

@@ -10,6 +10,8 @@ const SERVICE_LOGOS: Record<string, string> = {
   'okko': '/images/okko.svg',
   'kion': '/images/kion.svg',
   'ростелеком': '/images/rostelecom.svg',
+  'boosty': '/images/boosty.svg',
+  'литрес': '/images/litres.svg',
   
   // Работа
   'chatgpt plus': '/images/chatgpt.svg',
@@ -20,6 +22,7 @@ const SERVICE_LOGOS: Record<string, string> = {
   'microsoft 365': '/images/microsoft.svg',
   'trello': '/images/trello.svg',
   'slack': '/images/slack.svg',
+  'github': '/images/github.svg',
   
   // Утилиты
   'яндекс плюс': '/images/yandex.svg',

@@ -7,10 +7,11 @@ export interface PopularSub {
 }
 
 export const POPULAR_SUBSCRIPTIONS: PopularSub[] = [
-  { name: 'Netflix', currency: 'RUB', category: 'entertainment' },
   { name: 'Youtube', currency: 'RUB', category: 'entertainment' },
+  { name: 'Boosty', currency: 'RUB', category: 'entertainment' },
   { name: 'YouTube Premium', currency: 'RUB', category: 'entertainment' },
   { name: 'Spotify', currency: 'RUB', category: 'entertainment' },
+  { name: 'ЛитРес', currency: 'RUB', category: 'entertainment' },
   { name: 'Ростелеком', currency: 'RUB', category: 'utilities' },
   { name: 'Яндекс Плюс', currency: 'RUB', category: 'utilities' },
   { name: 'KION', currency: 'RUB', category: 'entertainment' },
@@ -21,6 +22,7 @@ export const POPULAR_SUBSCRIPTIONS: PopularSub[] = [
   { name: 'VK', currency: 'RUB', category: 'entertainment' },
   { name: 'Telegram Premium', currency: 'RUB', category: 'other' },
   { name: 'Telegram', currency: 'RUB', category: 'other' },
+  { name: 'GitHub', currency: 'RUB', category: 'work' },
   { name: 'Trello', currency: 'RUB', category: 'work' },
   { name: 'ChatGPT Plus', currency: 'RUB', category: 'work' },
   { name: 'ChatGPT', currency: 'RUB', category: 'work' },

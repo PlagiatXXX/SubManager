@@ -5,6 +5,7 @@ import { getDaysUntil, formatDateToRussian } from "../../lib/dateUtils";
 import { getCategoryLabel } from "../../lib/utils";
 import SERVICE_LOGOS from "../../constants/serviceLogos";
 import { calculateCost } from "../../lib/calculateCost";
+import { getCurrencySymbol } from "../../lib/utils";
 
 interface SubscriptionItemProps {
   subscription: Subscription;
@@ -41,11 +42,6 @@ export const SubscriptionItem = ({
     viewMode
   );
 
-  // Символ валюты
-  const getCurrencySymbol = (c: string) => {
-    const map: Record<string, string> = { RUB: "₽", USD: "$", EUR: "€" };
-    return map[c] || c;
-  };
 
   return (
     <div

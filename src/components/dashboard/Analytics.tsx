@@ -9,9 +9,9 @@ import {
   type TooltipProps,
 } from "recharts";
 import type { Category } from "../../types";
-// Импортируем словарь
 import { CATEGORY_LABELS } from "../../lib/utils";
 import { calculateCost } from "../../lib/calculateCost";
+import { getCurrencySymbol } from "../../lib/utils";
 
 // Цвета для категорий
 const COLORS: Record<Category, string> = {
@@ -19,12 +19,6 @@ const COLORS: Record<Category, string> = {
   work: "#10b981",
   utilities: "#f59e0b",
   other: "#64748b",
-};
-
-// Функция для получения символа валюты
-const getCurrencySymbol = (currency: string): string => {
-  const map: Record<string, string> = { RUB: "₽", USD: "$", EUR: "€" };
-  return map[currency] || currency;
 };
 
 // Кастомный компонент для Tooltip с поддержкой валют - не используется, но полезен как reference

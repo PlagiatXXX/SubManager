@@ -16,3 +16,8 @@ export const CATEGORY_LABELS: Record<Category, string> = {
 export const getCategoryLabel = (category: Category): string => {
   return CATEGORY_LABELS[category] || category;
 };
+
+export const getCurrencySymbol = (currency: string): string => {
+  const map: Record<string, string> = { RUB: "₽", USD: "$", EUR: "€" };
+  return map[currency] || currency;
+};
