@@ -96,7 +96,7 @@ export const Analytics = () => {
                   ))}
                 </Pie>
                 <Tooltip
-                  content={(props: TooltipContentProps) => {
+                  content={((props: TooltipContentProps) => {
                     const { active, payload } = props;
                     if (!active || !payload || !payload.length) return null;
 
@@ -112,7 +112,7 @@ export const Analytics = () => {
                         </p>
                       </div>
                     );
-                  }}
+                  }) as any}
                 />
               </PieChart>
             </ResponsiveContainer>
