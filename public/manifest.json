@@ -28,20 +28,7 @@
     }
   ],
   "categories": ["productivity", "finance"],
-  "screenshots": [
-    {
-      "src": "/SubManager/images/screenshot-mobile.png",
-      "sizes": "540x720",
-      "type": "image/png",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "/SubManager/images/screenshot-desktop.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    }
-  ],
+  "screenshots": [],
   "shortcuts": [
     {
       "name": "Добавить подписку",
