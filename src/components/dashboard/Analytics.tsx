@@ -96,8 +96,11 @@ export const Analytics = () => {
                   ))}
                 </Pie>
                 <Tooltip
-                  content={({ active, payload }: TooltipContentProps) =>
-                    active && payload && payload.length ? (
+                  content={(props: TooltipContentProps) => {
+                    const { active, payload } = props;
+                    if (!active || !payload || !payload.length) return null;
+
+                    return (
                       <div className="bg-white dark:bg-slate-800 p-3 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
                         <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
                           {CATEGORY_LABELS[payload[0].name as Category] ||
@@ -108,8 +111,8 @@ export const Analytics = () => {
                           {(payload[0].value as number).toFixed(2)}
                         </p>
                       </div>
-                    ) : null
-                  }
+                    );
+                  }}
                 />
               </PieChart>
             </ResponsiveContainer>
