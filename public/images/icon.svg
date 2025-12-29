@@ -1,0 +1,19 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="#0F1115"/>
+
+  <!-- Stack layers -->
+  <rect x="136" y="140" width="240" height="44" rx="22" fill="#4F7CFF"/>
+  <rect x="120" y="204" width="272" height="44" rx="22" fill="#9B6BFF"/>
+  <rect x="104" y="268" width="304" height="44" rx="22" fill="#FF8A4C"/>
+
+  <!-- Active layer -->
+  <rect x="88" y="332" width="336" height="48" rx="24" fill="#4CFF9A"/>
+
+  <!-- Extra small check mark -->
+  <path d="M236 356L250 370L278 342"
+        stroke="#0F1115"
+        stroke-width="10"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+</svg>
