@@ -27,4 +27,4 @@ User-agent: DotBot
 Disallow: /
 
 # Sitemap location
-Sitemap: https://submanager.vercel.app/sitemap.xml
+Sitemap: https://plagiatxxx.github.io/SubManager/sitemap.xml
