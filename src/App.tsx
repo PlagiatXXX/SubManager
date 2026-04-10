@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useSubStore } from "./store/useSubStore";
 import { Toaster } from "react-hot-toast";
 import { AddSubscriptionForm } from "./components/dashboard/AddSubscriptionForm";
@@ -6,6 +7,7 @@ import { SubscriptionList } from "./components/dashboard/SubscriptionList";
 import { Header } from "./components/layout/Header";
 import { calculateTotalCost } from "./lib/calculateTotalCost";
 import { useCurrencyRates } from "./hooks/useCurrencyRates";
+import { useNotifications } from "./hooks/useNotifications";
 
 function App() {
   const subscriptions = useSubStore((state) => state.subscriptions);
@@ -16,7 +18,25 @@ function App() {
   const setBaseCurrency = useSubStore((state) => state.setBaseCurrency);
   const rates = useSubStore((state) => state.rates);
 
+  const formRef = useRef<HTMLDivElement>(null);
+
   const { isLoading: isLoadingRates, error: ratesError } = useCurrencyRates();
+  // Initialize notifications
+  useNotifications();
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ctrl+N or Meta+N to focus form
+      if (e.key === "n" && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        formRef.current?.scrollIntoView({ behavior: "smooth" });
+        const input = formRef.current?.querySelector("input");
+        if (input instanceof HTMLInputElement) input.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const totalCost = calculateTotalCost(
     subscriptions,
@@ -40,7 +60,9 @@ function App() {
 
         <Analytics />
 
-        <AddSubscriptionForm />
+        <div ref={formRef}>
+          <AddSubscriptionForm />
+        </div>
 
         <SubscriptionList
           subscriptions={subscriptions}

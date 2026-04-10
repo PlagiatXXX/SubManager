@@ -33,7 +33,7 @@ interface SubscriptionStore {
 
    baseCurrency: 'RUB' | 'USD' | 'EUR'; // Валюта, в которой хотим видеть итог
   viewMode: 'monthly' | 'yearly';      // Показывать за месяц или за год
-  rates: Record<string, number>;      // Курсы валют
+  rates: import("../lib/currencyApi").CurrencyRates;      // Курсы валют
 
   addSubscription: (sub: Subscription) => void;
   deleteSubscription: (id: string) => void;
@@ -42,6 +42,8 @@ interface SubscriptionStore {
   setBaseCurrency: (currency: 'RUB' | 'USD' | 'EUR') => void;
   toggleViewMode: () => void;
   loadRates: () => Promise<void>;
+  notificationsEnabled: boolean;
+  setNotificationsEnabled: (enabled: boolean) => void;
 }
 
 export const useSubStore = create(
@@ -50,7 +52,8 @@ export const useSubStore = create(
       subscriptions: initialData,
       baseCurrency: 'RUB',
       viewMode: 'monthly',
-      rates: { usd: 1, rub: 1, eur: 1 }, 
+      rates: { usd: 1, rub: 1, eur: 1 } as import("../lib/currencyApi").CurrencyRates,
+      notificationsEnabled: false,
 
       addSubscription: (sub) =>
         set((state) => ({ subscriptions: [...state.subscriptions, sub] })),
@@ -68,6 +71,7 @@ export const useSubStore = create(
         })),
 
       setBaseCurrency: (currency) => set({ baseCurrency: currency }),
+      setNotificationsEnabled: (enabled) => set({ notificationsEnabled: enabled }),
       
       toggleViewMode: () => set((state) => ({
         viewMode: state.viewMode === 'monthly' ? 'yearly' : 'monthly'

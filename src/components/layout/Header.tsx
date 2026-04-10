@@ -1,6 +1,9 @@
 import { ThemeToggle } from "../ui/ThemeToggle";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2, Bell, BellOff, Download, Upload } from "lucide-react";
 import { getCurrencySymbol } from "../../lib/utils";
+import { useNotifications } from "../../hooks/useNotifications";
+import { useSubStore } from "../../store/useSubStore";
+import toast from "react-hot-toast";
 
 interface HeaderProps {
   isLoadingRates: boolean;
@@ -21,22 +24,110 @@ export const Header = ({
   viewMode,
   onToggleViewMode,
 }: HeaderProps) => {
+  const { notificationsEnabled, requestPermission, setNotificationsEnabled } = useNotifications();
+  const subscriptions = useSubStore((state) => state.subscriptions);
+  const addSubscription = useSubStore((state) => state.addSubscription);
+
+  const handleToggleNotifications = () => {
+    if (notificationsEnabled) {
+      setNotificationsEnabled(false);
+      toast.success("Уведомления выключены");
+    } else {
+      requestPermission();
+    }
+  };
+
+  const handleExport = () => {
+    const dataStr = JSON.stringify(subscriptions, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+    const exportFileDefaultName = 'subscriptions.json';
+
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+    toast.success("Данные экспортированы");
+  };
+
+  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const json = JSON.parse(e.target?.result as string);
+        if (Array.isArray(json)) {
+          // Простая валидация: проверяем наличие id и name у первого элемента
+          if (json.length > 0 && (!json[0].id || !json[0].name)) {
+            throw new Error("Неверный формат файла");
+          }
+
+          // В идеале здесь нужно очистить текущие или объединить
+          // Для простоты - добавляем те, которых нет (по id или имени)
+          json.forEach(sub => {
+            if (!subscriptions.find(s => s.id === sub.id)) {
+              addSubscription(sub);
+            }
+          });
+          toast.success("Данные импортированы");
+        }
+      } catch (err) {
+        toast.error("Ошибка при импорте: " + (err as Error).message);
+      }
+    };
+    reader.readAsText(file);
+    // Сброс input
+    event.target.value = '';
+  };
+
   return (
     <header className="mb-8 flex flex-col gap-4" role="banner">
-      <div>
-        <h1 className="text-4xl font-extrabold text-slate-800 dark:text-white tracking-tight">
-          Менеджер подписок
-        </h1>
-        <p className="text-slate-500 dark:text-slate-400 mt-1">
-          Управляйте своими подписками легко
-        </p>
+      <div className="flex justify-between items-start">
+        <div>
+          <h1 className="text-4xl font-extrabold text-slate-800 dark:text-white tracking-tight">
+            Менеджер подписок
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-1">
+            Управляйте своими подписками легко
+          </p>
+        </div>
+
+        <div className="flex gap-2">
+           <button
+            onClick={handleExport}
+            title="Экспорт в JSON"
+            className="p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+          >
+            <Download size={20} />
+          </button>
+
+          <label title="Импорт из JSON" className="p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer">
+            <Upload size={20} />
+            <input type="file" accept=".json" onChange={handleImport} className="hidden" />
+          </label>
+        </div>
       </div>
 
-      {/* Верхняя строка: тема + статус + валюта */}
+      {/* Верхняя строка: тема + статус + уведомления + валюта */}
       <div className="flex items-center gap-2 sm:gap-4 justify-between">
         <div className="flex items-center gap-2 sm:gap-4">
           {/* Кнопка темы */}
           <ThemeToggle />
+
+          {/* Кнопка уведомлений */}
+          <button
+            onClick={handleToggleNotifications}
+            className={`p-2 rounded-lg transition-colors ${
+              notificationsEnabled
+                ? "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400"
+                : "bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400"
+            }`}
+            title={notificationsEnabled ? "Уведомления включены" : "Включить уведомления"}
+          >
+            {notificationsEnabled ? <Bell size={20} /> : <BellOff size={20} />}
+          </button>
 
           {/* Статус загрузки курсов */}
           {isLoadingRates && (
